@@ -13,7 +13,7 @@ private:
         Node* prev;  // pointer to previous node
         Node* next;  // pointer to next node
 
-        // Constructor that initalixes the node with value
+        // Constructor that initalises the node with value
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val;    // assign value
             prev = p;      // set previous pointer
@@ -26,7 +26,7 @@ private:
 
 public:
 
-    // Constuctor intializes an empty lis
+    // Constuctor intializes an empty list
     DoublyLinkedList() { 
         head = nullptr; // no first node yet
         tail = nullptr; // no last node yet 
@@ -132,13 +132,13 @@ public:
             return;
         }
         
-        // If delteing last node
+        // If deleting last node
         if (!temp->next) {
             pop_back();
             return;
         }
         
-        // Re-link nodees around temp
+        // Re-link nodes around temp
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
@@ -204,7 +204,7 @@ public:
             tail->next = nullptr; // remove forward link
         }
         else
-            head = tail = nullptr; //list becomes emtpy
+            head = tail = nullptr; //list becomes empty
         delete temp;
     }
 
@@ -231,6 +231,7 @@ public:
         cout << endl;
     }
 
+    //Print list in reverse (tail to head)
     void print_reverse() {
         Node* current = tail;
         if (!current) { 
@@ -239,13 +240,13 @@ public:
         }
         while (current) {
             cout << current->data << " ";
-            current = current->prev;
+            current = current->prev; // skip one node
         }
         cout << endl;
     }
 
     void every_other_element(){
-        Node* current = tail; //start at first node
+        Node* current = head; //start at first node
 
         while (current)
         {
@@ -271,8 +272,12 @@ int main() {
     list.push_back(40);
     list.push_back(50);
     list.push_back(60);
-    
 
+    cout << "Full list: ";
+    list.print();
+
+    cout << "Every other element: ";
+    list.every_other_element();
     
     return 0;
 }
