@@ -159,18 +159,19 @@ public:
         }
     }
     
-    
+    //Insert at front
     void push_front(int v) {
         Node* newNode = new Node(v);
         if (!head)
             head = tail = newNode;
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newNode->next = head; // new node points to old head
+            head->prev = newNode; // old head points back
+            head = newNode;       // update head
         }
     }
     
+    //Remove first node
     void pop_front() {
 
         if (!head) {
@@ -178,40 +179,45 @@ public:
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; // store old head
 
         if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+            head = head->next;    // move head forward
+            head->prev = nullptr; // remove backward link
         }
         else
-            head = tail = nullptr;
-        delete temp;
+            head = tail = nullptr; // list empty
+        
+        delete temp; // free memory
     }
 
+    // Remove last node
     void pop_back() {
         if (!tail) {
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node * temp = tail; // store old tail
 
         if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+            tail = tail->prev;    // move tail backward
+            tail->next = nullptr; // remove forward link
         }
         else
-            head = tail = nullptr;
+            head = tail = nullptr; //list becomes emtpy
         delete temp;
     }
 
+    // Destructor: deletes entire list 
     ~DoublyLinkedList() {
         while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+            Node* temp = head; // store current node
+            head = head->next; // move head forward
+            delete temp;       // delete old node
         }
     }
+
+    // Print forward
     void print() {
         Node* current = head;
         if (!current) {
@@ -220,7 +226,7 @@ public:
         }
         while (current) {
             cout << current->data << " ";
-            current = current->next;
+            current = current->next; // follow next pointer
         }
         cout << endl;
     }
@@ -239,12 +245,33 @@ public:
     }
 
     void every_other_element(){
+        Node* current = tail; //start at first node
 
+        while (current)
+        {
+            cout << current->data << " ";
+        
+
+        if (current->next)
+            current = current->next->next;
+        else
+            break;
+        }
+
+        cout << endl;
     }
 };
 
 int main() {
-    DoublyLinkedList;
+    DoublyLinkedList list;
+
+    list.push_back(10);
+    list.push_back(20);
+    list.push_back(30);
+    list.push_back(40);
+    list.push_back(50);
+    list.push_back(60);
+    
 
     
     return 0;
